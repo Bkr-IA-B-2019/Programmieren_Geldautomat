@@ -14,45 +14,47 @@ namespace Geldautomat.Forms
 {
     public partial class FormLogin : BaseForm
     {
-        // If the mouse got pressed on the toolbar to drag
-        private bool windowDragged = false;
-
-        // At wich coordinates the mouse got clicked
-        private int dragX, dragY;
-
         public FormLogin()
         {
             InitializeComponent();
-
-            this.TopMost = true;
         }
 
         /// <summary>
-        /// Eventhanlder for when the mouse gets pressed on the toolbar
+        /// Event handler for the register button
         /// </summary>
-        private void Toolbar_OnMouseDown(object sender, MouseEventArgs e)
+        private void OnButtonRegisterClicked(object sender, EventArgs e)
         {
-            this.windowDragged = true;
-            this.dragX = e.X+9;
-            this.dragY = e.Y+9;
+            FormCreateAccount fca = new FormCreateAccount();
+            fca.ShowDialog();
         }
 
-        private void Toolbar_OnMouseUp(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Event handler for the login button
+        /// </summary>
+        private void OnButtonLoginClicked(object sender, EventArgs e)
         {
-            this.windowDragged = false;
-        }
+            // Tries to get the pin and id
+            if (!int.TryParse(this.textBoxPin.Text,out int pin) || !int.TryParse(this.textBoxId.Text,out int id)){
+                // Displays the error
+                this.DisplayError("ID oder Pin sind nicht valid.");
+                return;
+            }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+            // Tries to login the user
+            string optError = Usermanager.Instance.Login(id, pin);
 
-        private void Toolbar_OnMouseMove(object sender, MouseEventArgs e)
-        {
-            // Checks if the mouse is pressed
-            if(this.windowDragged)
-                // Updates the position
-                this.SetDesktopLocation(MousePosition.X - this.dragX,MousePosition.Y - this.dragY);
+            // Checks if the login was successfull
+            if (optError == null)
+            {
+                // Closes this window
+                this.Close();
+
+                // Opens the bank window
+                OpenNextWindow(new FormViewBank());
+            }
+            else
+                // Displays the error
+                this.DisplayError(optError);
         }
     }
 }

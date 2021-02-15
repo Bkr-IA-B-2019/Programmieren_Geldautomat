@@ -106,7 +106,7 @@
             this.textBoxLastname.MaxLength = 30;
             this.textBoxLastname.Name = "textBoxLastname";
             this.textBoxLastname.Size = new System.Drawing.Size(315, 36);
-            this.textBoxLastname.TabIndex = 0;
+            this.textBoxLastname.TabIndex = 1;
             // 
             // labelLastname
             // 
@@ -143,7 +143,7 @@
             this.textBoxPasswordFirst.MaxLength = 30;
             this.textBoxPasswordFirst.Name = "textBoxPasswordFirst";
             this.textBoxPasswordFirst.Size = new System.Drawing.Size(315, 36);
-            this.textBoxPasswordFirst.TabIndex = 0;
+            this.textBoxPasswordFirst.TabIndex = 2;
             // 
             // labelPasswordFirst
             // 
@@ -155,7 +155,7 @@
             this.labelPasswordFirst.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.labelPasswordFirst.Size = new System.Drawing.Size(315, 33);
             this.labelPasswordFirst.TabIndex = 2;
-            this.labelPasswordFirst.Text = "Password";
+            this.labelPasswordFirst.Text = "Pin";
             this.labelPasswordFirst.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel5
@@ -180,7 +180,7 @@
             this.textBoxPasswordSecond.MaxLength = 30;
             this.textBoxPasswordSecond.Name = "textBoxPasswordSecond";
             this.textBoxPasswordSecond.Size = new System.Drawing.Size(315, 36);
-            this.textBoxPasswordSecond.TabIndex = 0;
+            this.textBoxPasswordSecond.TabIndex = 3;
             // 
             // labelPasswordSecond
             // 
@@ -192,7 +192,7 @@
             this.labelPasswordSecond.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.labelPasswordSecond.Size = new System.Drawing.Size(315, 33);
             this.labelPasswordSecond.TabIndex = 2;
-            this.labelPasswordSecond.Text = "Passwort (Wiederholen)";
+            this.labelPasswordSecond.Text = "Pin (Wiederholen)";
             this.labelPasswordSecond.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // buttonRegister
@@ -206,9 +206,10 @@
             this.buttonRegister.Location = new System.Drawing.Point(282, 359);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(166, 37);
-            this.buttonRegister.TabIndex = 11;
+            this.buttonRegister.TabIndex = 4;
             this.buttonRegister.Text = "Registrieren";
             this.buttonRegister.UseVisualStyleBackColor = false;
+            this.buttonRegister.Click += new System.EventHandler(this.OnButtonRegisterClicked);
             // 
             // FormCreateAccount
             // 

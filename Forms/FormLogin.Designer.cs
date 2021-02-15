@@ -76,9 +76,10 @@
             this.buttonLogin.Location = new System.Drawing.Point(61, 260);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(129, 37);
-            this.buttonLogin.TabIndex = 5;
+            this.buttonLogin.TabIndex = 2;
             this.buttonLogin.Text = "Anmelden";
             this.buttonLogin.UseVisualStyleBackColor = false;
+            this.buttonLogin.Click += new System.EventHandler(this.OnButtonLoginClicked);
             // 
             // panel1
             // 
@@ -112,7 +113,7 @@
             this.textBoxPin.Location = new System.Drawing.Point(0, 33);
             this.textBoxPin.Name = "textBoxPin";
             this.textBoxPin.Size = new System.Drawing.Size(223, 36);
-            this.textBoxPin.TabIndex = 0;
+            this.textBoxPin.TabIndex = 1;
             // 
             // labelPin
             // 
@@ -123,7 +124,7 @@
             this.labelPin.Name = "labelPin";
             this.labelPin.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.labelPin.Size = new System.Drawing.Size(223, 33);
-            this.labelPin.TabIndex = 2;
+            this.labelPin.TabIndex = 6;
             this.labelPin.Text = "Pin";
             this.labelPin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -138,16 +139,16 @@
             this.buttonRegister.Location = new System.Drawing.Point(43, 313);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(168, 37);
-            this.buttonRegister.TabIndex = 9;
+            this.buttonRegister.TabIndex = 3;
             this.buttonRegister.Text = "Registrieren";
             this.buttonRegister.UseVisualStyleBackColor = false;
+            this.buttonRegister.Click += new System.EventHandler(this.OnButtonRegisterClicked);
             // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(256, 362);
-            this.ControlBox = false;
             this.Controls.Add(this.buttonRegister);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -156,6 +157,10 @@
             this.MaximumSize = new System.Drawing.Size(420, 420);
             this.MinimumSize = new System.Drawing.Size(230, 380);
             this.Name = "FormLogin";
+            this.Controls.SetChildIndex(this.buttonLogin, 0);
+            this.Controls.SetChildIndex(this.panel1, 0);
+            this.Controls.SetChildIndex(this.panel2, 0);
+            this.Controls.SetChildIndex(this.buttonRegister, 0);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
