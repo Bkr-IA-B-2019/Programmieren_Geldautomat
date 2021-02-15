@@ -1,4 +1,4 @@
-﻿namespace Geldautomat
+﻿namespace Geldautomat.Forms
 {
     partial class FormLogin
     {
@@ -29,20 +29,13 @@
         private void InitializeComponent()
         {
             this.textBoxId = new System.Windows.Forms.TextBox();
-            this.labelTitle = new System.Windows.Forms.Label();
             this.labelId = new System.Windows.Forms.Label();
             this.buttonLogin = new System.Windows.Forms.Button();
-            this.toolbar = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.textBoxPin = new System.Windows.Forms.TextBox();
             this.labelPin = new System.Windows.Forms.Label();
             this.buttonRegister = new System.Windows.Forms.Button();
-            this.toolbar.SuspendLayout();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -58,23 +51,6 @@
             this.textBoxId.Name = "textBoxId";
             this.textBoxId.Size = new System.Drawing.Size(223, 36);
             this.textBoxId.TabIndex = 0;
-            // 
-            // labelTitle
-            // 
-            this.labelTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelTitle.BackColor = System.Drawing.Color.Transparent;
-            this.labelTitle.Font = new System.Drawing.Font("Rockwell Nova", 16.27826F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.ForeColor = System.Drawing.Color.White;
-            this.labelTitle.Location = new System.Drawing.Point(0, 0);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(223, 70);
-            this.labelTitle.TabIndex = 1;
-            this.labelTitle.Text = "Anmeldung";
-            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Toolbar_OnMouseDown);
-            this.labelTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Toolbar_OnMouseMove);
-            this.labelTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Toolbar_OnMouseUp);
             // 
             // labelId
             // 
@@ -103,38 +79,6 @@
             this.buttonLogin.TabIndex = 5;
             this.buttonLogin.Text = "Anmelden";
             this.buttonLogin.UseVisualStyleBackColor = false;
-            // 
-            // toolbar
-            // 
-            this.toolbar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(109)))), ((int)(((byte)(255)))));
-            this.toolbar.Controls.Add(this.panel3);
-            this.toolbar.Controls.Add(this.labelTitle);
-            this.toolbar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.toolbar.Location = new System.Drawing.Point(0, 0);
-            this.toolbar.Name = "toolbar";
-            this.toolbar.Size = new System.Drawing.Size(256, 70);
-            this.toolbar.TabIndex = 6;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.pictureBox1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(229, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(27, 70);
-            this.panel3.TabIndex = 2;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::Geldautomat.Properties.Resources.Close;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(27, 70);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // panel1
             // 
@@ -202,21 +146,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(256, 362);
             this.ControlBox = false;
             this.Controls.Add(this.buttonRegister);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.toolbar);
             this.Controls.Add(this.buttonLogin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximumSize = new System.Drawing.Size(420, 420);
             this.MinimumSize = new System.Drawing.Size(230, 380);
             this.Name = "FormLogin";
-            this.toolbar.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -228,17 +167,13 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBoxId;
-        private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelId;
         private System.Windows.Forms.Button buttonLogin;
-        private System.Windows.Forms.Panel toolbar;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox textBoxPin;
         private System.Windows.Forms.Label labelPin;
         private System.Windows.Forms.Button buttonRegister;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

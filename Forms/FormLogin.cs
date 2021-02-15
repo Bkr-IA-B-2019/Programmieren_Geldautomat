@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Geldautomat.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,9 +10,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Geldautomat
+namespace Geldautomat.Forms
 {
-    public partial class FormLogin : System.Windows.Forms.Form
+    public partial class FormLogin : BaseForm
     {
         // If the mouse got pressed on the toolbar to drag
         private bool windowDragged = false;
