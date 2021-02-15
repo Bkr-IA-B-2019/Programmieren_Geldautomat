@@ -22,17 +22,28 @@ namespace Geldautomat.database
         public SqliteDatabase(string file)
         {
             this.File = file;
-            this.connection = new SqliteConnection($"data source=\"{file}\";");
         }
 
-        public void Connect()
+        /// <summary>
+        /// Ensures that the database-connection is established.
+        /// </summary>
+        /// <exception cref="DatabaseConnectionException">Throws if the database failes to connect</exception>
+        private void EnsureConnection()
         {
+            // Checks if the connection already established
+            if (this.connection != null)
+                return;
+
             try
             {
+                // Creates the connection
+                this.connection = new SqliteConnection($"data source=\"{this.File}\";");
                 this.connection.Open();
             }
             catch (SqliteException)
             {
+                // Resets the connection
+                this.connection = null;
                 throw new DatabaseConnectionException("Fehler beim öffnen der Datenbankverbindung.");
             }
         }
@@ -47,6 +58,7 @@ namespace Geldautomat.database
 
         public Account GetAccountByID(int id)
         {
+            this.EnsureConnection();
             try
             {
                 // Creates a new command
@@ -89,6 +101,7 @@ namespace Geldautomat.database
 
         public Transaction[] GetAccountTransactions(Account account)
         {
+            this.EnsureConnection();
             try
             {
                 // Creates a new command
@@ -133,6 +146,7 @@ namespace Geldautomat.database
 
         public Account CreateNewAccount(Account pseudoAccount)
         {
+            this.EnsureConnection();
             try
             {
                 // Creates a new command
@@ -161,7 +175,7 @@ namespace Geldautomat.database
                 // Creates the new account
                 return new Account(id,pseudoAccount);
             }
-            catch (SqliteException)
+            catch (SqliteException e)
             {
                 throw new DatabaseException("Fehler beim sichern des Account's in der Datenbank.");
             }
@@ -169,6 +183,7 @@ namespace Geldautomat.database
 
         public Transaction CreateNewTransaction(Transaction pseudoTransaction)
         {
+            this.EnsureConnection();
             try
             {
                 // Creates a new command
@@ -203,6 +218,7 @@ namespace Geldautomat.database
 
         public void UpdateAccount(Account account)
         {
+            this.EnsureConnection();
             try
             {
                 // Creates a new command
@@ -237,6 +253,7 @@ namespace Geldautomat.database
         /// </summary>
         private int GetLastInsertedID()
         {
+            this.EnsureConnection();
             // Creates the command
             var cmd = this.connection.CreateCommand();
             cmd.CommandText = @"

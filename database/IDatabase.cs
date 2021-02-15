@@ -4,16 +4,6 @@ namespace Geldautomat.database
 {
     interface IDatabase
     {
-
-        /// <summary>
-        /// Connects the to databse
-        /// </summary>
-        /// <exception cref="DatabaseConnectionException">
-        /// Gets thrown, when the database failes to connect or open.
-        /// Contains the message of the error
-        /// </exception>
-        void Connect();
-
         /// <summary>
         /// Closes the connection to the database
         /// </summary>
