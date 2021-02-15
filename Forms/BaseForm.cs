@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Geldautomat.Forms
@@ -39,7 +40,7 @@ namespace Geldautomat.Forms
         /// </summary>
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         /// <summary>
@@ -51,6 +52,27 @@ namespace Geldautomat.Forms
             if (this.windowDragged)
                 // Updates the position
                 this.SetDesktopLocation(MousePosition.X - this.dragX, MousePosition.Y - this.dragY);
+        }
+
+        /// <summary>
+        /// Displays the given error to the user
+        /// </summary>
+        protected void DisplayError(string error)
+        {
+            // Creates an error form
+            new FormError(error).ShowDialog();
+        }
+
+        /// <summary>
+        /// Opens the given window and closes this one
+        /// </summary>
+        protected void OpenNextWindow(Form form)
+        {
+            // Opens the window
+            new Thread(o =>Application.Run(form)).Start();
+
+            // Closes this one
+            this.Close();
         }
     }
 }
