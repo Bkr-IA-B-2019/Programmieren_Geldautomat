@@ -74,7 +74,8 @@ namespace Geldautomat.database
                             Firstname = reader.GetString(2),
                             Lastname = reader.GetString(3),
                             Money = reader.GetDecimal(4),
-                            PinHash = reader.GetString(5)
+                            PinHash = reader.GetString(5),
+                            PinSalt = reader.GetString(6)
                         };
                     }
                     else
@@ -138,9 +139,9 @@ namespace Geldautomat.database
                 var cmd = this.connection.CreateCommand();
                 cmd.CommandText = @"
                     INSERT INTO Accounts
-                    (createdatetime,firstname,lastname,money,pinhash)
+                    (createdatetime,firstname,lastname,money,pinhash,pinsalt)
                     VALUES
-                    ($cdt,$fn,$ln,$m,$ph);
+                    ($cdt,$fn,$ln,$m,$ph,$ps);
                 ";
 
                 // Appends the parameters
@@ -149,6 +150,7 @@ namespace Geldautomat.database
                 cmd.Parameters.AddWithValue("$ln", pseudoAccount.Lastname);
                 cmd.Parameters.AddWithValue("$m", pseudoAccount.Money);
                 cmd.Parameters.AddWithValue("$ph", pseudoAccount.PinHash);
+                cmd.Parameters.AddWithValue("$ps", pseudoAccount.PinSalt);
 
                 // Executes the command get gets the result
                 cmd.ExecuteNonQuery();
@@ -207,7 +209,7 @@ namespace Geldautomat.database
                 var cmd = this.connection.CreateCommand();
                 cmd.CommandText = @"
                     UPDATE ACCOUNTS
-                    SET createdatetime=$cdt, firstname=$fn, lastname=$ln, money=$m, pinhash=$ph
+                    SET createdatetime=$cdt, firstname=$fn, lastname=$ln, money=$m, pinhash=$ph, pinsalt=$ps
                     WHERE id=$id;
                 ";
 
@@ -217,6 +219,7 @@ namespace Geldautomat.database
                 cmd.Parameters.AddWithValue("$ln", account.Lastname);
                 cmd.Parameters.AddWithValue("$m", account.Money);
                 cmd.Parameters.AddWithValue("$ph", account.PinHash);
+                cmd.Parameters.AddWithValue("ps", account.PinSalt);
                 cmd.Parameters.AddWithValue("$id", account.Id);
 
                 // Executes the command get gets the result

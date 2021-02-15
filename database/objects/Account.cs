@@ -26,20 +26,26 @@ namespace Geldautomat.database.objects
         public decimal Money;
 
         /// <summary>
-        /// The pin (Password) of the account holder
+        /// The pin (Password) of the account holder. Use a sha256 with the PinSalt appended to the password.
         /// </summary>
         public string PinHash;
+
+        /// <summary>
+        /// The pin salt for the generation of the hash. Shall be appended to the actual password before hashing.
+        /// </summary>
+        public string PinSalt;
 
         /// <summary>
         /// Used when a new pseudo account is created.
         /// This account must first be pushed to the database to get an id assigned
         /// </summary>
-        public Account(string firstname, string lastname, decimal money, string pinHash)
+        public Account(string firstname, string lastname, decimal money, string pinHash,string pinSalt)
         {
-            Firstname = firstname;
-            Lastname = lastname;
-            Money = money;
-            PinHash = pinHash;
+            this.Firstname = firstname;
+            this.Lastname = lastname;
+            this.Money = money;
+            this.PinHash = pinHash;
+            this.PinSalt = pinSalt;
             this.CreateDateTime = DateTime.Now;
         }
 
@@ -63,6 +69,7 @@ namespace Geldautomat.database.objects
             this.Lastname = pseudoAccount.Lastname;
             this.Money = pseudoAccount.Money;
             this.PinHash = pseudoAccount.PinHash;
+            this.PinSalt = pseudoAccount.PinSalt;
         }
     }
 }
