@@ -33,7 +33,7 @@ namespace Geldautomat
         /// <summary>
         /// Holds the database connection util
         /// </summary>
-        public IDatabase Database = new SqliteDatabase("Bank.sqlite");
+        public IDatabase Database = Config.USED_DATABASE;
 
         private Usermanager(){}
 

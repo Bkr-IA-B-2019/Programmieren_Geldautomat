@@ -57,10 +57,12 @@ namespace Geldautomat.Forms
         /// <summary>
         /// Displays the given error to the user
         /// </summary>
-        protected void DisplayError(string error)
+        /// <param name="error">The error that should be displayed</param>
+        /// <param name="owner">The form that shuld display the error-form</param>
+        protected void DisplayError(string error,Form owner = null)
         {
             // Creates an error form
-            new FormError(error).ShowDialog();
+            new FormError(error).ShowDialog(owner == null ? this : owner);
         }
 
         /// <summary>

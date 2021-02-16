@@ -19,9 +19,9 @@ namespace Geldautomat.database
         /// The name of the open database file
         /// </summary>
         public string File { get; private set; }
-        public SqliteDatabase(string file)
+        public SqliteDatabase()
         {
-            this.File = file;
+            this.File = Config.SQLITE_FILE_NAME;
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Geldautomat.database
                 cmd.CommandText = @"
                     SELECT *
                     FROM Transactions
-                    WHERE id=$id;
+                    WHERE accountid=$id;
                 ";
 
                 // Appends the parameters
@@ -130,7 +130,7 @@ namespace Geldautomat.database
                                 reader.GetDecimal(1),   // Money
                                 reader.GetBoolean(2),   // Subtracted
                                 account.Id,             // Account id
-                                reader.GetDateTime(3)   // Datetime
+                                reader.GetDateTime(4)   // Datetime
                             )
                         );
                     }
@@ -175,7 +175,7 @@ namespace Geldautomat.database
                 // Creates the new account
                 return new Account(id,pseudoAccount);
             }
-            catch (SqliteException e)
+            catch (SqliteException)
             {
                 throw new DatabaseException("Fehler beim sichern des Account's in der Datenbank.");
             }

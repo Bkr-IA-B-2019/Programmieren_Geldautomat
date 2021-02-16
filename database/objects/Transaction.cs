@@ -46,8 +46,8 @@ namespace Geldautomat.database.objects
         {
             this.TranslatedMoney = translatedMoney;
             this.Subtracted = subtracted;
-            this.Id = account.Id;
             this.DateTime = DateTime.Now;
+            this.AccountId = account.Id;
         }
 
         /// <summary>
