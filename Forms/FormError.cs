@@ -12,7 +12,7 @@ namespace Geldautomat.Forms
 {
     public partial class FormError : BaseForm
     {
-        public FormError(string error)
+        public FormError(string error) : base("Fehler")
         {
             InitializeComponent();
 

@@ -12,7 +12,7 @@ namespace Geldautomat.Forms
 {
     public partial class FormCreateAccount : BaseForm
     {
-        public FormCreateAccount()
+        public FormCreateAccount() : base("Registrierung")
         {
             InitializeComponent();
         }

@@ -169,6 +169,7 @@
             this.buttonLoadMoney.TabIndex = 8;
             this.buttonLoadMoney.Text = "Aufladen";
             this.buttonLoadMoney.UseVisualStyleBackColor = false;
+            this.buttonLoadMoney.Click += new System.EventHandler(this.OnButtonLoadMoneyClicked);
             // 
             // buttonPay
             // 

@@ -22,7 +22,7 @@ namespace Geldautomat.Forms
         /// </summary>
         /// <exception cref="Exception">Throws an exception if anything went wrong with the successfull display of the transactions.</exception>
         /// <param name="parent">The parent from of the current transactions</param>
-        public FormTransactions()
+        public FormTransactions() : base("Transaktionen")
         {
             InitializeComponent();
 
@@ -49,7 +49,7 @@ namespace Geldautomat.Forms
                 foreach (Transaction tr in transactions)
                     this.AddTransaction(
                         $"{(tr.Subtracted ? "-" : "+")} {tr.TranslatedMoney}€ am {tr.DateTime.ToString(@"dd.MM.yyyy \u\m HH:mm:ss")}",
-                        tr.Subtracted ? Color.Red : Color.Green
+                        tr.Subtracted ? Color.Red : Color.LawnGreen
                     );
             }
             catch (DatabaseException e)

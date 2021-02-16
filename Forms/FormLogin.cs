@@ -14,7 +14,7 @@ namespace Geldautomat.Forms
 {
     public partial class FormLogin : BaseForm
     {
-        public FormLogin()
+        public FormLogin() : base("Login")
         {
             InitializeComponent();
         }

@@ -12,9 +12,11 @@ namespace Geldautomat.Forms
         // At wich coordinates the mouse got clicked
         private int dragX, dragY;
 
-        public BaseForm()
+        public BaseForm(string title = "Untitled")
         {
             InitializeComponent();
+
+            this.labelTitle.Text = title;
         }
 
         /// <summary>

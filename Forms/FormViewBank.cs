@@ -13,7 +13,7 @@ namespace Geldautomat.Forms
 {
     public partial class FormViewBank : BaseForm
     {
-        public FormViewBank()
+        public FormViewBank() : base("Bank")
         {
             InitializeComponent();
             this.panelMenu.SendToBack();
@@ -77,6 +77,15 @@ namespace Geldautomat.Forms
         {
             // Opens the buy form
             new FormBuy(this).ShowDialog();
+        }
+
+        /// <summary>
+        /// Event handler for the load-money button
+        /// </summary>
+        private void OnButtonLoadMoneyClicked(object sender, EventArgs e)
+        {
+            // Opens the form
+            new FormLoadMoney(this).ShowDialog();
         }
     }
 }

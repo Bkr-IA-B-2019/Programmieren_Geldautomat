@@ -42,7 +42,7 @@
             this.labelError.Location = new System.Drawing.Point(0, 55);
             this.labelError.Name = "labelError";
             this.labelError.Padding = new System.Windows.Forms.Padding(10);
-            this.labelError.Size = new System.Drawing.Size(322, 83);
+            this.labelError.Size = new System.Drawing.Size(376, 131);
             this.labelError.TabIndex = 8;
             this.labelError.Text = "<Error>";
             this.labelError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -55,7 +55,7 @@
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Font = new System.Drawing.Font("Consolas", 13.77391F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonClose.ForeColor = System.Drawing.Color.White;
-            this.buttonClose.Location = new System.Drawing.Point(101, 141);
+            this.buttonClose.Location = new System.Drawing.Point(128, 189);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(129, 37);
             this.buttonClose.TabIndex = 9;
@@ -68,10 +68,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(322, 202);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(376, 250);
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.buttonClose);
-            this.MaximumSize = new System.Drawing.Size(340, 220);
+            this.MaximumSize = new System.Drawing.Size(800, 500);
             this.Name = "FormError";
             this.Controls.SetChildIndex(this.buttonClose, 0);
             this.Controls.SetChildIndex(this.labelError, 0);

@@ -21,7 +21,7 @@ namespace Geldautomat.Forms
         private readonly FormViewBank parentForm;
 
         /// <param name="parent">The parent form of this element</param>
-        public FormBuy(FormViewBank parent)
+        public FormBuy(FormViewBank parent) : base("Kaufen")
         {
             this.parentForm = parent;
             InitializeComponent();
@@ -61,25 +61,18 @@ namespace Geldautomat.Forms
         private void OnButtonAcceptClicked(object sender, EventArgs e)
         {
             // Creates the transaction
-            string optErr = Usermanager.Instance.CreateTransaction((decimal)this.price);
+            string optErr = Usermanager.Instance.CreateTransaction((decimal)this.price,true);
+
+            // Closes this window
+            this.Close();
 
             // Checks if an error occured
             if(optErr != null)
-            {
-                // Closes this window
-                this.Close();
-
                 // Displays the error to the user
                 this.DisplayError(optErr, this.parentForm);
-            }
             else
-            {
-                // Closes this form
-                this.Close();
-
                 // Updates the user-elements
                 this.parentForm.RefreshUserElements();
-            }
         }
     }
 }
