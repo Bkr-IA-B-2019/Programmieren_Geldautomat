@@ -16,15 +16,6 @@ namespace Geldautomat.database
         private SqliteConnection connection;
 
         /// <summary>
-        /// The name of the open database file
-        /// </summary>
-        public string File { get; private set; }
-        public SqliteDatabase()
-        {
-            this.File = Config.SQLITE_FILE_NAME;
-        }
-
-        /// <summary>
         /// Ensures that the database-connection is established.
         /// </summary>
         /// <exception cref="DatabaseConnectionException">Throws if the database failes to connect</exception>
@@ -37,7 +28,7 @@ namespace Geldautomat.database
             try
             {
                 // Creates the connection
-                this.connection = new SqliteConnection($"data source=\"{this.File}\";");
+                this.connection = new SqliteConnection($"data source=\"{Config.SQLITE_FILE_NAME}\";");
                 this.connection.Open();
             }
             catch (SqliteException)

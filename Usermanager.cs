@@ -185,11 +185,12 @@ namespace Geldautomat
         /// Creates a transaction with the given price. Creates a new transaction and updates the users account.
         /// </summary>
         /// <param name="price">The price that the product has</param>
+        /// <param name="subtract">If the transaction shuld remove or add money to the account</param>
         /// <returns>If the transaction was successfull null; Otherwise the error message.</returns>
-        public string CreateTransaction(decimal price)
+        public string CreateTransaction(decimal price,bool subtract)
         {
             // Creates the transaction
-            Transaction pseudoTransaction = new Transaction(price, true, this.LoggedInAs);
+            Transaction pseudoTransaction = new Transaction(price, subtract, this.LoggedInAs);
 
             try
             {
@@ -197,7 +198,7 @@ namespace Geldautomat
                 this.Database.CreateNewTransaction(pseudoTransaction);
 
                 // Updates the users account
-                this.LoggedInAs.Money -= price;
+                this.LoggedInAs.Money += price * (subtract ? -1 : 1);
 
                 // Inserts the account into the database
                 this.Database.UpdateAccount(this.LoggedInAs);
