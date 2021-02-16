@@ -82,71 +82,80 @@
     <Compile Include="database\exceptions\DatabaseConnectionException.cs" />
     <Compile Include="database\exceptions\DatabaseException.cs" />
     <Compile Include="database\IDatabase.cs" />
-    <Compile Include="Forms\BaseForm.cs">
+    <Compile Include="forms\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\BaseForm.Designer.cs">
+    <Compile Include="forms\BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormBuy.cs">
+    <Compile Include="forms\FormBuy.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormBuy.Designer.cs">
+    <Compile Include="forms\FormBuy.Designer.cs">
       <DependentUpon>FormBuy.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormCreateAccount.cs">
+    <Compile Include="forms\FormCreateAccount.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormCreateAccount.Designer.cs">
+    <Compile Include="forms\FormCreateAccount.Designer.cs">
       <DependentUpon>FormCreateAccount.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormError.cs">
+    <Compile Include="forms\FormError.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormError.Designer.cs">
+    <Compile Include="forms\FormError.Designer.cs">
       <DependentUpon>FormError.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormLogin.cs">
+    <Compile Include="forms\FormLoadMoney.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormLogin.Designer.cs">
+    <Compile Include="forms\FormLoadMoney.Designer.cs">
+      <DependentUpon>FormLoadMoney.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormTransactions.cs">
+    <Compile Include="forms\FormTransactions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormTransactions.Designer.cs">
+    <Compile Include="forms\FormTransactions.Designer.cs">
       <DependentUpon>FormTransactions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormViewBank.cs">
+    <Compile Include="forms\FormViewBank.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormViewBank.Designer.cs">
+    <Compile Include="forms\FormViewBank.Designer.cs">
       <DependentUpon>FormViewBank.cs</DependentUpon>
     </Compile>
     <Compile Include="Usermanager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="database\objects\Transaction.cs" />
-    <EmbeddedResource Include="Forms\BaseForm.resx">
+    <EmbeddedResource Include="forms\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormBuy.resx">
+    <EmbeddedResource Include="forms\FormBuy.resx">
       <DependentUpon>FormBuy.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormCreateAccount.resx">
+    <EmbeddedResource Include="forms\FormCreateAccount.resx">
       <DependentUpon>FormCreateAccount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormError.resx">
+    <EmbeddedResource Include="forms\FormError.resx">
       <DependentUpon>FormError.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormLogin.resx">
+    <EmbeddedResource Include="forms\FormLoadMoney.resx">
+      <DependentUpon>FormLoadMoney.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormTransactions.resx">
+    <EmbeddedResource Include="forms\FormTransactions.resx">
       <DependentUpon>FormTransactions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormViewBank.resx">
+    <EmbeddedResource Include="forms\FormViewBank.resx">
       <DependentUpon>FormViewBank.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
