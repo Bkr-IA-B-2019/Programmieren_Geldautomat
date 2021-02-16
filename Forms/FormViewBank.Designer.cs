@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelWelcome = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelMoney = new System.Windows.Forms.Panel();
             this.labelMoney = new System.Windows.Forms.Label();
             this.labelMoneyTitle = new System.Windows.Forms.Label();
             this.panelMenu = new System.Windows.Forms.Panel();
@@ -39,44 +38,38 @@
             this.buttonTransactions = new System.Windows.Forms.Button();
             this.buttonLoadMoney = new System.Windows.Forms.Button();
             this.buttonPay = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.panelId = new System.Windows.Forms.Panel();
+            this.labelId = new System.Windows.Forms.Label();
+            this.labelIdTitle = new System.Windows.Forms.Label();
+            this.panelWelcome = new System.Windows.Forms.Panel();
+            this.labelWelcome = new System.Windows.Forms.Label();
+            this.labelWelcomeTitle = new System.Windows.Forms.Label();
+            this.panelMoney.SuspendLayout();
             this.panelMenu.SuspendLayout();
             this.panelMenuFields.SuspendLayout();
+            this.panelId.SuspendLayout();
+            this.panelWelcome.SuspendLayout();
             this.SuspendLayout();
             // 
-            // labelWelcome
+            // panelMoney
             // 
-            this.labelWelcome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelWelcome.Font = new System.Drawing.Font("Tahoma", 28.17391F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWelcome.ForeColor = System.Drawing.Color.White;
-            this.labelWelcome.Location = new System.Drawing.Point(212, 52);
-            this.labelWelcome.Name = "labelWelcome";
-            this.labelWelcome.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.labelWelcome.Size = new System.Drawing.Size(806, 59);
-            this.labelWelcome.TabIndex = 9;
-            this.labelWelcome.Text = "Willkommen <Name>";
-            this.labelWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.labelMoney);
-            this.panel1.Controls.Add(this.labelMoneyTitle);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(212, 111);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(806, 47);
-            this.panel1.TabIndex = 10;
+            this.panelMoney.BackColor = System.Drawing.Color.Transparent;
+            this.panelMoney.Controls.Add(this.labelMoney);
+            this.panelMoney.Controls.Add(this.labelMoneyTitle);
+            this.panelMoney.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelMoney.Location = new System.Drawing.Point(212, 116);
+            this.panelMoney.Name = "panelMoney";
+            this.panelMoney.Size = new System.Drawing.Size(806, 47);
+            this.panelMoney.TabIndex = 10;
             // 
             // labelMoney
             // 
             this.labelMoney.Dock = System.Windows.Forms.DockStyle.Left;
             this.labelMoney.Font = new System.Drawing.Font("Tahoma", 20.03478F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMoney.ForeColor = System.Drawing.Color.White;
-            this.labelMoney.Location = new System.Drawing.Point(228, 0);
+            this.labelMoney.Location = new System.Drawing.Point(208, 0);
             this.labelMoney.Name = "labelMoney";
-            this.labelMoney.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.labelMoney.Size = new System.Drawing.Size(228, 47);
+            this.labelMoney.Size = new System.Drawing.Size(595, 47);
             this.labelMoney.TabIndex = 11;
             this.labelMoney.Text = "<Geld>";
             this.labelMoney.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -88,8 +81,8 @@
             this.labelMoneyTitle.ForeColor = System.Drawing.Color.White;
             this.labelMoneyTitle.Location = new System.Drawing.Point(0, 0);
             this.labelMoneyTitle.Name = "labelMoneyTitle";
-            this.labelMoneyTitle.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.labelMoneyTitle.Size = new System.Drawing.Size(228, 47);
+            this.labelMoneyTitle.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.labelMoneyTitle.Size = new System.Drawing.Size(208, 47);
             this.labelMoneyTitle.TabIndex = 10;
             this.labelMoneyTitle.Text = "Kontostand:";
             this.labelMoneyTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -101,9 +94,9 @@
             this.panelMenu.Controls.Add(this.panelOverlap);
             this.panelMenu.Controls.Add(this.panelMenuFields);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelMenu.Location = new System.Drawing.Point(0, 52);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(212, 606);
+            this.panelMenu.Size = new System.Drawing.Size(212, 554);
             this.panelMenu.TabIndex = 11;
             // 
             // buttonLogout
@@ -115,12 +108,13 @@
             this.buttonLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLogout.Font = new System.Drawing.Font("Consolas", 13.77391F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonLogout.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-            this.buttonLogout.Location = new System.Drawing.Point(10, 557);
+            this.buttonLogout.Location = new System.Drawing.Point(10, 505);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(188, 37);
             this.buttonLogout.TabIndex = 11;
             this.buttonLogout.Text = "Logout";
             this.buttonLogout.UseVisualStyleBackColor = false;
+            this.buttonLogout.Click += new System.EventHandler(this.OnButtonLogoutClicked);
             // 
             // panelOverlap
             // 
@@ -138,7 +132,7 @@
             this.panelMenuFields.Controls.Add(this.buttonTransactions);
             this.panelMenuFields.Controls.Add(this.buttonLoadMoney);
             this.panelMenuFields.Controls.Add(this.buttonPay);
-            this.panelMenuFields.Location = new System.Drawing.Point(10, 217);
+            this.panelMenuFields.Location = new System.Drawing.Point(10, 191);
             this.panelMenuFields.Name = "panelMenuFields";
             this.panelMenuFields.Size = new System.Drawing.Size(191, 144);
             this.panelMenuFields.TabIndex = 9;
@@ -158,6 +152,7 @@
             this.buttonTransactions.TabIndex = 6;
             this.buttonTransactions.Text = "Transaktionen";
             this.buttonTransactions.UseVisualStyleBackColor = false;
+            this.buttonTransactions.Click += new System.EventHandler(this.OnButtonTransactionsClicked);
             // 
             // buttonLoadMoney
             // 
@@ -190,32 +185,106 @@
             this.buttonPay.TabIndex = 7;
             this.buttonPay.Text = "Bezahlen";
             this.buttonPay.UseVisualStyleBackColor = false;
+            this.buttonPay.Click += new System.EventHandler(this.OnButtonBuyClicked);
+            // 
+            // panelId
+            // 
+            this.panelId.BackColor = System.Drawing.Color.Transparent;
+            this.panelId.Controls.Add(this.labelId);
+            this.panelId.Controls.Add(this.labelIdTitle);
+            this.panelId.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelId.Location = new System.Drawing.Point(212, 163);
+            this.panelId.Name = "panelId";
+            this.panelId.Size = new System.Drawing.Size(806, 47);
+            this.panelId.TabIndex = 12;
+            // 
+            // labelId
+            // 
+            this.labelId.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelId.Font = new System.Drawing.Font("Tahoma", 20.03478F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelId.ForeColor = System.Drawing.Color.White;
+            this.labelId.Location = new System.Drawing.Point(153, 0);
+            this.labelId.Name = "labelId";
+            this.labelId.Size = new System.Drawing.Size(632, 47);
+            this.labelId.TabIndex = 11;
+            this.labelId.Text = "<ID>";
+            this.labelId.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelIdTitle
+            // 
+            this.labelIdTitle.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelIdTitle.Font = new System.Drawing.Font("Tahoma", 20.03478F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelIdTitle.ForeColor = System.Drawing.Color.White;
+            this.labelIdTitle.Location = new System.Drawing.Point(0, 0);
+            this.labelIdTitle.Name = "labelIdTitle";
+            this.labelIdTitle.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.labelIdTitle.Size = new System.Drawing.Size(153, 47);
+            this.labelIdTitle.TabIndex = 10;
+            this.labelIdTitle.Text = "Ihre ID:";
+            this.labelIdTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panelWelcome
+            // 
+            this.panelWelcome.Controls.Add(this.labelWelcome);
+            this.panelWelcome.Controls.Add(this.labelWelcomeTitle);
+            this.panelWelcome.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelWelcome.Location = new System.Drawing.Point(212, 52);
+            this.panelWelcome.Name = "panelWelcome";
+            this.panelWelcome.Size = new System.Drawing.Size(806, 64);
+            this.panelWelcome.TabIndex = 13;
+            // 
+            // labelWelcome
+            // 
+            this.labelWelcome.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelWelcome.Font = new System.Drawing.Font("Tahoma", 28.17391F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWelcome.ForeColor = System.Drawing.Color.White;
+            this.labelWelcome.Location = new System.Drawing.Point(335, 0);
+            this.labelWelcome.Name = "labelWelcome";
+            this.labelWelcome.Size = new System.Drawing.Size(472, 64);
+            this.labelWelcome.TabIndex = 11;
+            this.labelWelcome.Text = "<Name>";
+            this.labelWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelWelcomeTitle
+            // 
+            this.labelWelcomeTitle.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelWelcomeTitle.Font = new System.Drawing.Font("Tahoma", 28.17391F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWelcomeTitle.ForeColor = System.Drawing.Color.White;
+            this.labelWelcomeTitle.Location = new System.Drawing.Point(0, 0);
+            this.labelWelcomeTitle.Name = "labelWelcomeTitle";
+            this.labelWelcomeTitle.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.labelWelcomeTitle.Size = new System.Drawing.Size(335, 64);
+            this.labelWelcomeTitle.TabIndex = 10;
+            this.labelWelcomeTitle.Text = "Willkommen";
+            this.labelWelcomeTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FormViewBank
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 606);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.labelWelcome);
+            this.Controls.Add(this.panelId);
+            this.Controls.Add(this.panelMoney);
+            this.Controls.Add(this.panelWelcome);
             this.Controls.Add(this.panelMenu);
             this.MinimumSize = new System.Drawing.Size(900, 550);
             this.Name = "FormViewBank";
             this.Controls.SetChildIndex(this.panelMenu, 0);
-            this.Controls.SetChildIndex(this.labelWelcome, 0);
-            this.Controls.SetChildIndex(this.panel1, 0);
-            this.panel1.ResumeLayout(false);
+            this.Controls.SetChildIndex(this.panelWelcome, 0);
+            this.Controls.SetChildIndex(this.panelMoney, 0);
+            this.Controls.SetChildIndex(this.panelId, 0);
+            this.panelMoney.ResumeLayout(false);
             this.panelMenu.ResumeLayout(false);
             this.panelMenu.PerformLayout();
             this.panelMenuFields.ResumeLayout(false);
+            this.panelId.ResumeLayout(false);
+            this.panelWelcome.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label labelWelcome;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelMoney;
         private System.Windows.Forms.Label labelMoneyTitle;
         private System.Windows.Forms.Label labelMoney;
         private System.Windows.Forms.Panel panelMenu;
@@ -225,5 +294,11 @@
         private System.Windows.Forms.Panel panelOverlap;
         private System.Windows.Forms.Panel panelMenuFields;
         private System.Windows.Forms.Button buttonLogout;
+        private System.Windows.Forms.Panel panelId;
+        private System.Windows.Forms.Label labelId;
+        private System.Windows.Forms.Label labelIdTitle;
+        private System.Windows.Forms.Panel panelWelcome;
+        private System.Windows.Forms.Label labelWelcome;
+        private System.Windows.Forms.Label labelWelcomeTitle;
     }
 }

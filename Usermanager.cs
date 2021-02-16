@@ -182,6 +182,61 @@ namespace Geldautomat
         }
 
         /// <summary>
+        /// Creates a transaction with the given price. Creates a new transaction and updates the users account.
+        /// </summary>
+        /// <param name="price">The price that the product has</param>
+        /// <returns>If the transaction was successfull null; Otherwise the error message.</returns>
+        public string CreateTransaction(decimal price)
+        {
+            // Creates the transaction
+            Transaction pseudoTransaction = new Transaction(price, true, this.LoggedInAs);
+
+            try
+            {
+                // Tries to insert the transaction
+                this.Database.CreateNewTransaction(pseudoTransaction);
+
+                // Updates the users account
+                this.LoggedInAs.Money -= price;
+
+                // Inserts the account into the database
+                this.Database.UpdateAccount(this.LoggedInAs);
+
+                return null;
+            }catch(DatabaseException e)
+            {
+                return e.Message;
+            }
+        }
+
+        /// <summary>
+        /// Generates a random product from the preset config products
+        /// </summary>
+        /// <returns>The randomly generated product</returns>
+        public string GetRandomProduct()
+        {
+            return Config.BUY_PRODUCTS[this.random.Next(Config.BUY_PRODUCTS.Length)];
+        }
+
+        /// <summary>
+        /// Generates a random price for a product
+        /// </summary>
+        /// <returns>The generated price</returns>
+        public float GetRandomPrice()
+        {
+            // Generates the base price
+            float price = this.random.Next(1,21);
+
+            // Some proct structures that need to be present at every f*cking product for some reason
+            float[] centPriceStructure = { .99f,.95f,0,.5f };
+
+            // Adds a random cent-price structure
+            price += centPriceStructure[this.random.Next(centPriceStructure.Length)];
+
+            return price;
+        }
+
+        /// <summary>
         /// Logs the program out of the currently logged in account
         /// </summary>
         public void Logout()
