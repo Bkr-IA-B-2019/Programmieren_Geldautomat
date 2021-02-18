@@ -30,8 +30,8 @@
         {
             this.dragBar = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.labelTitle = new System.Windows.Forms.Label();
             this.closeButton = new System.Windows.Forms.PictureBox();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.dragBar.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.closeButton)).BeginInit();
@@ -57,6 +57,18 @@
             this.panel3.Size = new System.Drawing.Size(27, 52);
             this.panel3.TabIndex = 2;
             // 
+            // closeButton
+            // 
+            this.closeButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.closeButton.Image = global::Geldautomat.Properties.Resources.Close;
+            this.closeButton.Location = new System.Drawing.Point(0, 0);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(27, 52);
+            this.closeButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.closeButton.TabIndex = 0;
+            this.closeButton.TabStop = false;
+            this.closeButton.Click += new System.EventHandler(this.CloseButton_Click);
+            // 
             // labelTitle
             // 
             this.labelTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -73,18 +85,6 @@
             this.labelTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Dragbar_OnMouseMove);
             this.labelTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Dragbar_OnMouseUp);
             // 
-            // closeButton
-            // 
-            this.closeButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.closeButton.Image = global::Geldautomat.Properties.Resources.Close;
-            this.closeButton.Location = new System.Drawing.Point(0, 0);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(27, 52);
-            this.closeButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.closeButton.TabIndex = 0;
-            this.closeButton.TabStop = false;
-            this.closeButton.Click += new System.EventHandler(this.CloseButton_Click);
-            // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -94,7 +94,8 @@
             this.ControlBox = false;
             this.Controls.Add(this.dragBar);
             this.MinimumSize = new System.Drawing.Size(250, 150);
-            this.Name = "BaseForm";
+            this.Name = "<Title>";
+            this.Load += new System.EventHandler(this.OnLoadForm);
             this.dragBar.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.closeButton)).EndInit();

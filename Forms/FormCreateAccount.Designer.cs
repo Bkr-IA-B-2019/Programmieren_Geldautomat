@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class FormCreateAccount
+    partial class Registrierung
     {
         /// <summary>
         /// Required designer variable.
@@ -211,7 +211,7 @@
             this.buttonRegister.UseVisualStyleBackColor = false;
             this.buttonRegister.Click += new System.EventHandler(this.OnButtonRegisterClicked);
             // 
-            // FormCreateAccount
+            // Registrierung
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -222,7 +222,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(750, 450);
-            this.Name = "FormCreateAccount";
+            this.Name = "Registrierung";
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.panel2, 0);
             this.Controls.SetChildIndex(this.panel4, 0);

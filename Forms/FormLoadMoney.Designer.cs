@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class FormLoadMoney
+    partial class Aufladen
     {
         /// <summary>
         /// Required designer variable.
@@ -87,7 +87,7 @@
             this.buttonAccept.UseVisualStyleBackColor = false;
             this.buttonAccept.Click += new System.EventHandler(this.OnButtonAcceptClicked);
             // 
-            // FormLoadMoney
+            // Aufladen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -96,7 +96,7 @@
             this.Controls.Add(this.panel1);
             this.MaximumSize = new System.Drawing.Size(700, 420);
             this.MinimumSize = new System.Drawing.Size(450, 220);
-            this.Name = "FormLoadMoney";
+            this.Name = "Aufladen";
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.buttonAccept, 0);
             this.panel1.ResumeLayout(false);

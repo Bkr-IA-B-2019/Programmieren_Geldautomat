@@ -1,18 +1,12 @@
 ﻿using Geldautomat.database.exceptions;
 using Geldautomat.database.objects;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Geldautomat.Forms
 {
-    public partial class FormTransactions : BaseForm
+    public partial class Transaktionen : BaseForm
     {
         // Default font for all transactions
         private Font TransactionFont = new Font("Bahnschrift", 12);
@@ -22,7 +16,7 @@ namespace Geldautomat.Forms
         /// </summary>
         /// <exception cref="Exception">Throws an exception if anything went wrong with the successfull display of the transactions.</exception>
         /// <param name="parent">The parent from of the current transactions</param>
-        public FormTransactions() : base("Transaktionen")
+        public Transaktionen()
         {
             InitializeComponent();
 

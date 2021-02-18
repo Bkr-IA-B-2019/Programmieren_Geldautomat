@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class FormTransactions
+    partial class Transaktionen
     {
         /// <summary>
         /// Required designer variable.
@@ -41,13 +41,13 @@
             this.panelTransactions.Size = new System.Drawing.Size(340, 568);
             this.panelTransactions.TabIndex = 8;
             // 
-            // FormTransactions
+            // Transaktionen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(340, 620);
             this.Controls.Add(this.panelTransactions);
-            this.Name = "FormTransactions";
+            this.Name = "Transaktionen";
             this.Controls.SetChildIndex(this.panelTransactions, 0);
             this.ResumeLayout(false);
 

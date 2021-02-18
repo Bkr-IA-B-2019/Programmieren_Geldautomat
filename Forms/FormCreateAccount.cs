@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Geldautomat.Forms
 {
-    public partial class FormCreateAccount : BaseForm
+    public partial class Registrierung : BaseForm
     {
-        public FormCreateAccount() : base("Registrierung")
+        public Registrierung()
         {
             InitializeComponent();
         }
@@ -64,7 +64,7 @@ namespace Geldautomat.Forms
                 Application.OpenForms[i].Close();
 
             // Creates the bank form
-            Form bank = new FormViewBank();
+            Form bank = new Bank();
 
             // Opens the bankview
             this.OpenNextWindow(bank);

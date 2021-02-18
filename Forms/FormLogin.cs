@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace Geldautomat.Forms
 {
-    public partial class FormLogin : BaseForm
+    public partial class Anmeldung : BaseForm
     {
-        public FormLogin() : base("Login")
+        public Anmeldung()
         {
             InitializeComponent();
         }
@@ -24,7 +24,7 @@ namespace Geldautomat.Forms
         /// </summary>
         private void OnButtonRegisterClicked(object sender, EventArgs e)
         {
-            FormCreateAccount fca = new FormCreateAccount();
+            Registrierung fca = new Registrierung();
             fca.ShowDialog();
         }
 
@@ -50,7 +50,7 @@ namespace Geldautomat.Forms
                 this.Close();
 
                 // Opens the bank window
-                OpenNextWindow(new FormViewBank());
+                OpenNextWindow(new Bank());
             }
             else
                 // Displays the error

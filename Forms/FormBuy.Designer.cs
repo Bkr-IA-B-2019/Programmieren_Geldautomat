@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class FormBuy
+    partial class Kaufen
     {
         /// <summary>
         /// Required designer variable.
@@ -224,7 +224,7 @@
             this.buttonCancle.UseVisualStyleBackColor = false;
             this.buttonCancle.Click += new System.EventHandler(this.OnButtonCancleClicked);
             // 
-            // FormBuy
+            // Kaufen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -236,7 +236,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelId);
             this.MinimumSize = new System.Drawing.Size(700, 360);
-            this.Name = "FormBuy";
+            this.Name = "Kaufen";
             this.Controls.SetChildIndex(this.panelId, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.panel2, 0);

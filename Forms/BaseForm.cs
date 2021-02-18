@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -12,11 +13,17 @@ namespace Geldautomat.Forms
         // At wich coordinates the mouse got clicked
         private int dragX, dragY;
 
-        public BaseForm(string title = "Untitled")
+        public BaseForm()
         {
             InitializeComponent();
+        }
 
-            this.labelTitle.Text = title;
+        /// <summary>
+        /// Event handler for the load event
+        /// </summary>
+        private void OnLoadForm(object sender, EventArgs e)
+        {
+            this.labelTitle.Text = this.Name;
         }
 
         /// <summary>
@@ -64,7 +71,7 @@ namespace Geldautomat.Forms
         protected void DisplayError(string error,Form owner = null)
         {
             // Creates an error form
-            new FormError(error).ShowDialog(owner == null ? this : owner);
+            new Fehler(error).ShowDialog(owner == null ? this : owner);
         }
 
         /// <summary>

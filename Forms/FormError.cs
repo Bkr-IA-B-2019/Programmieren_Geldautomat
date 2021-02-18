@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Geldautomat.Forms
 {
-    public partial class FormError : BaseForm
+    public partial class Fehler : BaseForm
     {
-        public FormError(string error) : base("Fehler")
+        public Fehler(string error)
         {
             InitializeComponent();
 

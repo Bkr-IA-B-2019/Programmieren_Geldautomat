@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class FormViewBank
+    partial class Bank
     {
         /// <summary>
         /// Required designer variable.
@@ -259,7 +259,7 @@
             this.labelWelcomeTitle.Text = "Willkommen";
             this.labelWelcomeTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // FormViewBank
+            // Bank
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -269,7 +269,7 @@
             this.Controls.Add(this.panelWelcome);
             this.Controls.Add(this.panelMenu);
             this.MinimumSize = new System.Drawing.Size(900, 550);
-            this.Name = "FormViewBank";
+            this.Name = "Bank";
             this.Controls.SetChildIndex(this.panelMenu, 0);
             this.Controls.SetChildIndex(this.panelWelcome, 0);
             this.Controls.SetChildIndex(this.panelMoney, 0);

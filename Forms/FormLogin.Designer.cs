@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class FormLogin
+    partial class Anmeldung
     {
         /// <summary>
         /// Required designer variable.
@@ -144,7 +144,7 @@
             this.buttonRegister.UseVisualStyleBackColor = false;
             this.buttonRegister.Click += new System.EventHandler(this.OnButtonRegisterClicked);
             // 
-            // FormLogin
+            // Anmeldung
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -156,7 +156,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximumSize = new System.Drawing.Size(420, 420);
             this.MinimumSize = new System.Drawing.Size(230, 380);
-            this.Name = "FormLogin";
+            this.Name = "Anmeldung";
             this.Controls.SetChildIndex(this.buttonLogin, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.panel2, 0);

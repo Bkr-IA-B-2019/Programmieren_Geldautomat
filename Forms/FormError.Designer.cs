@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class FormError
+    partial class Fehler
     {
         /// <summary>
         /// Required designer variable.
@@ -63,7 +63,7 @@
             this.buttonClose.UseVisualStyleBackColor = false;
             this.buttonClose.Click += new System.EventHandler(this.OnButtonCloseClicked);
             // 
-            // FormError
+            // Fehler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -73,7 +73,7 @@
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.buttonClose);
             this.MaximumSize = new System.Drawing.Size(800, 500);
-            this.Name = "FormError";
+            this.Name = "Fehler";
             this.Controls.SetChildIndex(this.buttonClose, 0);
             this.Controls.SetChildIndex(this.labelError, 0);
             this.ResumeLayout(false);

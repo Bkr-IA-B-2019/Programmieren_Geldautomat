@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Geldautomat.Forms
 {
-    public partial class FormViewBank : BaseForm
+    public partial class Bank : BaseForm
     {
-        public FormViewBank() : base("Bank")
+        public Bank()
         {
             InitializeComponent();
             this.panelMenu.SendToBack();
@@ -49,7 +49,7 @@ namespace Geldautomat.Forms
             Usermanager.Instance.Logout();
 
             // Redirects back to the login screen
-            this.OpenNextWindow(new FormLogin());
+            this.OpenNextWindow(new Anmeldung());
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Geldautomat.Forms
             try
             {
                 // Displays the dialog with all transactions
-                new FormTransactions().ShowDialog();
+                new Transaktionen().ShowDialog();
             }
             catch (Exception ex)
             {
@@ -76,7 +76,7 @@ namespace Geldautomat.Forms
         private void OnButtonBuyClicked(object sender, EventArgs e)
         {
             // Opens the buy form
-            new FormBuy(this).ShowDialog();
+            new Kaufen(this).ShowDialog();
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Geldautomat.Forms
         private void OnButtonLoadMoneyClicked(object sender, EventArgs e)
         {
             // Opens the form
-            new FormLoadMoney(this).ShowDialog();
+            new Aufladen(this).ShowDialog();
         }
     }
 }
