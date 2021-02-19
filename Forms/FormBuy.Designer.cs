@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class Kaufen
+    partial class FormBuy
     {
         /// <summary>
         /// Required designer variable.

@@ -8,14 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace Geldautomat.Forms
 {
-    public partial class Anmeldung : BaseForm
+    public partial class FormLogin : BaseForm
     {
-        public Anmeldung()
+        public FormLogin()
         {
+            this.WindowTitle = "Anmeldung";
             InitializeComponent();
         }
 
@@ -24,7 +26,7 @@ namespace Geldautomat.Forms
         /// </summary>
         private void OnButtonRegisterClicked(object sender, EventArgs e)
         {
-            Registrierung fca = new Registrierung();
+            FormRegister fca = new FormRegister();
             fca.ShowDialog();
         }
 
@@ -50,7 +52,7 @@ namespace Geldautomat.Forms
                 this.Close();
 
                 // Opens the bank window
-                OpenNextWindow(new Bank());
+                OpenNextWindow(new FormViewBank());
             }
             else
                 // Displays the error

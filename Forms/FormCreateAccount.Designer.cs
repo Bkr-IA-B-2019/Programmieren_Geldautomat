@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class Registrierung
+    partial class FormRegister
     {
         /// <summary>
         /// Required designer variable.

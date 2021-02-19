@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class Anmeldung
+    partial class FormLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -157,6 +157,7 @@
             this.MaximumSize = new System.Drawing.Size(420, 420);
             this.MinimumSize = new System.Drawing.Size(230, 380);
             this.Name = "Anmeldung";
+            this.TestigerTest = "yeet";
             this.Controls.SetChildIndex(this.buttonLogin, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.panel2, 0);

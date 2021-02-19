@@ -95,7 +95,6 @@
             this.Controls.Add(this.dragBar);
             this.MinimumSize = new System.Drawing.Size(250, 150);
             this.Name = "<Title>";
-            this.Load += new System.EventHandler(this.OnLoadForm);
             this.dragBar.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.closeButton)).EndInit();

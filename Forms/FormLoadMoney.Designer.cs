@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class Aufladen
+    partial class FormLoadMoney
     {
         /// <summary>
         /// Required designer variable.

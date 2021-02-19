@@ -1,6 +1,6 @@
 ﻿namespace Geldautomat.Forms
 {
-    partial class Fehler
+    partial class FormError
     {
         /// <summary>
         /// Required designer variable.

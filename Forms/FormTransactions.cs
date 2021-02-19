@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Geldautomat.Forms
 {
-    public partial class Transaktionen : BaseForm
+    public partial class FormTransactions : BaseForm
     {
         // Default font for all transactions
         private Font TransactionFont = new Font("Bahnschrift", 12);
@@ -16,8 +16,9 @@ namespace Geldautomat.Forms
         /// </summary>
         /// <exception cref="Exception">Throws an exception if anything went wrong with the successfull display of the transactions.</exception>
         /// <param name="parent">The parent from of the current transactions</param>
-        public Transaktionen()
+        public FormTransactions()
         {
+            this.WindowTitle = "Transaktionen";
             InitializeComponent();
 
             // Gets the user

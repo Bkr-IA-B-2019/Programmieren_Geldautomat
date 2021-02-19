@@ -7,6 +7,8 @@ namespace Geldautomat.Forms
 {
     public partial class BaseForm : Form
     {
+
+
         // If the mouse got pressed on the toolbar to drag
         private bool windowDragged = false;
 
@@ -19,12 +21,16 @@ namespace Geldautomat.Forms
         }
 
         /// <summary>
-        /// Event handler for the load event
+        /// Propertie for the window-bar title
         /// </summary>
-        private void OnLoadForm(object sender, EventArgs e)
+        protected string WindowTitle
         {
-            this.labelTitle.Text = this.Name;
+            set
+            {
+                this.labelTitle.Text = value;
+            }
         }
+
 
         /// <summary>
         /// Eventhanlder for when the mouse gets pressed on the toolbar
@@ -71,7 +77,7 @@ namespace Geldautomat.Forms
         protected void DisplayError(string error,Form owner = null)
         {
             // Creates an error form
-            new Fehler(error).ShowDialog(owner == null ? this : owner);
+            new FormError(error).ShowDialog(owner == null ? this : owner);
         }
 
         /// <summary>

@@ -10,10 +10,11 @@ using System.Windows.Forms;
 
 namespace Geldautomat.Forms
 {
-    public partial class Fehler : BaseForm
+    public partial class FormError : BaseForm
     {
-        public Fehler(string error)
+        public FormError(string error)
         {
+            this.WindowTitle = "Fehler";
             InitializeComponent();
 
             this.labelError.Text = error;

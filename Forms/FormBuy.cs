@@ -11,18 +11,20 @@ using System.Windows.Forms;
 
 namespace Geldautomat.Forms
 {
-    public partial class Kaufen : BaseForm
+    public partial class FormBuy : BaseForm
     {
         /// <summary>
         /// Saves the price that the product would cost
         /// </summary>
         private float price;
 
-        private readonly Bank parentForm;
+        private readonly FormViewBank parentForm;
 
         /// <param name="parent">The parent form of this element</param>
-        public Kaufen(Bank parent)
+        public FormBuy(FormViewBank parent)
         {
+            this.WindowTitle = "Kaufen";
+
             this.parentForm = parent;
             InitializeComponent();
 

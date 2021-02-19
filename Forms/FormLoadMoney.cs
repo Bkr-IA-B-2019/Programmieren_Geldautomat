@@ -10,15 +10,16 @@ using System.Windows.Forms;
 
 namespace Geldautomat.Forms
 {
-    public partial class Aufladen : BaseForm
+    public partial class FormLoadMoney : BaseForm
     {
         /// <summary>
         /// Holds the parent form
         /// </summary>
-        private readonly Bank parentForm;
+        private readonly FormViewBank parentForm;
 
-        public Aufladen(Bank parent)
+        public FormLoadMoney(FormViewBank parent)
         {
+            this.WindowTitle = "Geld Aufladen";
             this.parentForm = parent;
             InitializeComponent();
         }
