@@ -2,7 +2,7 @@
 
 namespace Geldautomat.database.objects
 {
-    class Transaction
+    public class Transaction
     {
         public int Id { get; private set; }
 
