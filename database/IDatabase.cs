@@ -43,12 +43,12 @@ namespace Geldautomat.database
         /// <summary>
         /// Inserts a new transaction into the database
         /// </summary>
-        /// <param name="transaction">The new transaction</param>
+        /// <param name="pseudoTransaction">The new transaction</param>
         /// <exception cref="DatabaseException">
         /// Gets thrown, when the successful communication with the database failes
         /// </exception>
         /// <returns>The created transaction with the updates from the database like the id</returns>
-        Transaction CreateNewTransaction(Transaction transaction);
+        Transaction CreateNewTransaction(Transaction pseudoTransaction);
 
         /// <summary>
         /// Updates the accounts data to the database.

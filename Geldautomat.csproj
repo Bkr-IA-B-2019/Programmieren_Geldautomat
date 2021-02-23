@@ -78,11 +78,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="database\CSVDatabase.cs" />
     <Compile Include="database\objects\Account.cs" />
     <Compile Include="database\SqliteDatabase.cs" />
     <Compile Include="database\exceptions\DatabaseConnectionException.cs" />
     <Compile Include="database\exceptions\DatabaseException.cs" />
     <Compile Include="database\IDatabase.cs" />
+    <Compile Include="Extendings.cs" />
     <Compile Include="forms\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
