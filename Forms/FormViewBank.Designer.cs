@@ -236,7 +236,8 @@
             // 
             // labelWelcome
             // 
-            this.labelWelcome.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelWelcome.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWelcome.Font = new System.Drawing.Font("Tahoma", 28.17391F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelWelcome.ForeColor = System.Drawing.Color.White;
             this.labelWelcome.Location = new System.Drawing.Point(335, 0);
@@ -259,7 +260,7 @@
             this.labelWelcomeTitle.Text = "Willkommen";
             this.labelWelcomeTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Bank
+            // FormViewBank
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -269,7 +270,7 @@
             this.Controls.Add(this.panelWelcome);
             this.Controls.Add(this.panelMenu);
             this.MinimumSize = new System.Drawing.Size(900, 550);
-            this.Name = "Bank";
+            this.Name = "FormViewBank";
             this.Controls.SetChildIndex(this.panelMenu, 0);
             this.Controls.SetChildIndex(this.panelWelcome, 0);
             this.Controls.SetChildIndex(this.panelMoney, 0);

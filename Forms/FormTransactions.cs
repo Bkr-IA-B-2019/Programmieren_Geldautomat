@@ -27,18 +27,14 @@ namespace Geldautomat.Forms
 
             // Checks if no transactions have been found
             if (trans.Length <= 0)
-            {
                 this.AddTransaction("Keine Transaktionen gefunden.", Color.White);
-            }
             else
-            {
                 // Appends all transactions
                 foreach (Transaction tr in trans)
                     this.AddTransaction(
                         $"{(tr.Subtracted ? "-" : "+")} {tr.TranslatedMoney}€ am {tr.DateTime.ToString(@"dd.MM.yyyy \u\m HH:mm:ss")}",
                         tr.Subtracted ? Color.Red : Color.LawnGreen
                     );
-            }
 
             // Calculates the excepted balance of the account
             decimal fin = trans.Length <= 0 ? 0 : trans.Select(x => x.TranslatedMoney * (x.Subtracted ? -1 : 1)).Aggregate((a, b) => a + b);
