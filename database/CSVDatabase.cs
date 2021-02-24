@@ -6,26 +6,63 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Geldautomat.database
 {
     class CSVDatabase : IDatabase
     {
+        #region Static-Settings
+
         /// <summary>
         /// The seperator the seperate datatypes
         /// </summary>
         private const char SEPERATOR = ',';
+
+
+        /// <summary>
+        /// Indicator for an account on the database
+        /// </summary>
+        private const char INDICATOR_ACCOUNT = 'A';
+
+        /// <summary>
+        /// Indicator for an transaction on the database
+        /// </summary>
+        private const char INDICATOR_TRANSACTION = 'T';
+
+        #endregion
+
+        #region Delegated methodes
+
+        /// <summary>
+        /// Tries to parse a line into the required object.
+        /// </summary>
+        /// <param name="line">The line that holds the object (Encoded by the objects definition)</param>
+        /// <returns>The object if the parsing was successfull; otherwise null</returns>
+        public delegate T LineParser<T>(string line);
+
+        /// <summary>
+        /// Encoded an object that can be parsed later on by a corresponding LineParser
+        /// </summary>
+        /// <param name="rawObject">The object that should be encoded</param>
+        /// <returns>A string that holds the encoded object</returns>
+        public delegate string ObjectEncoder<T>(T rawObject);
+
+        #endregion
+
 
         /// <summary>
         /// The path to the database file
         /// </summary>
         public string FilePath { get; private set; }
 
-        public CSVDatabase(string filePath)
+        public CSVDatabase()
         {
-            FilePath = filePath;
+            FilePath = Config.CSV_FILE_NAME;
         }
+
+        #region Parsefunctions
 
         /// <summary>
         /// Parses an account from a given string that could be read from a file
@@ -73,6 +110,7 @@ namespace Geldautomat.database
             };
         }
 
+
         /// <summary>
         /// Converts an account to a line that can be loaded again later
         /// </summary>
@@ -83,67 +121,6 @@ namespace Geldautomat.database
             return $"{acc.Id},{acc.PinSalt.AsBase64()},{acc.PinHash},{acc.Money.ToString(CultureInfo.InvariantCulture)},{acc.Firstname.AsBase64()},{acc.Lastname.AsBase64()},{acc.CreateDateTime.ToString()}";
         }
 
-        /// <summary>
-        /// Tries to load all accounts from the db-file.
-        /// In case null is returned, the file is corrupted and should be replaced with an working one.
-        /// </summary>
-        /// <returns>The accounts if the loading was successfull; otherwise null</returns>
-        private Account[] LoadAllAccounts()
-        {
-            try
-            {
-                // Opens the reader
-                using (StreamReader sr = new StreamReader(this.FilePath))
-                {
-                    // Will hold all accounts
-                    List<Account> accounts = new List<Account>();
-
-                    // Reads all lines
-                    string line;
-                    while((line = sr.ReadLine()) != null){
-                        // Checks if the line is an account
-                        if(line[0] == 'A')
-                        {
-                            // Tries to load the line
-                            Account a = this.ParseAccountFromLine(line.Substring(1, line.Length - 1));
-
-                            // Checks if the loading failed
-                            if (a == null)
-                                return null;
-
-                            accounts.Add(a);
-                        }
-                    }
-
-                    // Returns all loaded accounts
-                    return accounts.ToArray();
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the highest id that is currently beeing used an returns the next
-        /// </summary>
-        /// <returns>The next free account id</returns>
-        private int GetNextAccountID()
-        {
-            // Loads all accounts
-            Account[] accs = this.LoadAllAccounts();
-
-            // Checks if no accounts are found
-            if (accs == null || accs.Length == 0)
-                return 0;
-
-            // Gets the account with the highest id
-            int highestId = accs.Aggregate((a, b) => a.Id > b.Id ? a : b).Id;
-
-            // Returns the next highest id
-            return highestId + 1;
-        }
 
         /// <summary>
         /// Parses an transaction from the given string that could be read from a file (As a line)
@@ -193,6 +170,114 @@ namespace Geldautomat.database
             return $"{trans.Id},{trans.TranslatedMoney.ToString(CultureInfo.InvariantCulture)},{trans.Subtracted},{trans.AccountId},{trans.DateTime}";
         }
 
+        #endregion
+
+        #region Database-helper functions
+
+        /// <summary>
+        /// Tries to load all saved values from the db-file.
+        /// Takes a function to parse a line to an value
+        /// and the indicator that indicated that the given line in the database file is that datatype
+        /// In case null is returned, the file is corrupted and should be replaced with an working one.
+        /// </summary>
+        /// <param name="indicator">The char that indicates that the given line from the database is actually one of the requested type.</param>
+        /// <param name="doParse">Lineparser for the object</param>
+        /// <returns>An array with all loaded values from the file; if the loading was unsuccessfull null</returns>
+        private T[] LoadAllOf<T>(LineParser<T> doParse,char indicator)
+        {
+            try
+            {
+                // Opens the reader
+                using (StreamReader sr = new StreamReader(this.FilePath))
+                {
+                    // Will hold all loaded values
+                    List<T> loaded = new List<T>();
+
+                    // Reads all lines
+                    string line;
+                    while((line = sr.ReadLine()) != null){
+                        // Checks if the line not an account
+                        if (line.Length <= 0 || line[0] != indicator)
+                            continue;
+
+                        // Tries to load the line
+                        T loadedObject = doParse(line.Substring(1, line.Length - 1));
+
+                        // Checks if the loading failed
+                        if (loadedObject == null)
+                            return null;
+
+                        // Appends the all loaded
+                        loaded.Add(loadedObject);
+                    }
+
+                    // Returns all loaded accounts
+                    return loaded.ToArray();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the highest id that is currently beeing used an returns the next
+        /// </summary>
+        /// <param name="doParse">LineParser for the object</param>
+        /// <param name="getId">Function to get the id (Unique) of an object</param>
+        /// <param name="indicator">The indicator to show that a line on the database actually is from the object's type</param>
+        /// <returns>The next free account id</returns>
+        private int GetNextIDFor<T>(LineParser<T> doParse, Func<T,int> getId, char indicator)
+        {
+            // Loads all accounts
+            T[] accs = this.LoadAllOf(doParse,indicator);
+
+            // Checks if no accounts are found
+            if (accs == null || accs.Length == 0)
+                return 0;
+
+            // Gets the highest id from the objects on the database
+            int highestId = accs.Select(getId).Aggregate((a, b) => a > b ? a : b);
+
+            // Returns the next highest id
+            return highestId + 1;
+        }
+
+        /// <summary>
+        /// Inserts the given pseudoObject into the database and returns the newly created one (With the real id and so on)
+        /// </summary>
+        /// <param name="pseudoValue">The pseudoObject that should be inserted</param>
+        /// <param name="doConvert">Function to convert a pseudoObject into a real one with the id given</param>
+        /// <param name="doEncode">Encoder to generated the line for the database</param>
+        /// <param name="indicator">The indicator of that object</param>
+        /// <param name="doParse">LineParser for the object</param>
+        /// <param name="getId">Function to get the id (Unique) of an object</param>
+        /// <exception cref="DatabaseException">If anything went wrong with the insert</exception>
+        /// <returns>The real object (Made from the pseudo and id)</returns>
+        private T InsertNewIntoDatabase<T>(T pseudoValue,Func<int,T,T> doConvert,Func<T,int> getId,ObjectEncoder<T> doEncode,LineParser<T> doParse,char indicator)
+        {
+            // Gets the next id for the object
+            int id = this.GetNextIDFor(doParse, getId, indicator);
+
+            // Converts the pseudoObject into a real one
+            T realObject = doConvert(id,pseudoValue);
+
+            try
+            {
+                // Inserts the new object into the database
+                using (StreamWriter sr = new StreamWriter(this.FilePath, true, Encoding.UTF8))
+                    sr.WriteLine(indicator + doEncode(realObject));
+
+                // Returns the newly inserted object
+                return realObject;
+            }
+            catch
+            {
+                throw new DatabaseException("Fehler beim sichern des Wertes in der Datanbank ("+indicator+").");
+            }
+        }
+
         /// <summary>
         /// Ensures that the required database file exists
         /// </summary>
@@ -200,8 +285,11 @@ namespace Geldautomat.database
         {
             // Checks if the file does not exist
             if (!File.Exists(this.FilePath))
-                File.Create(this.FilePath);
+                // Creates the file
+                File.Create(this.FilePath).Close();
         }
+
+        #endregion
 
         #region IDatabase inhert
 
@@ -214,32 +302,30 @@ namespace Geldautomat.database
         {
             this.EnsureFileExistence();
 
-            // Gets the next account id
-            int id = this.GetNextAccountID();
-
-            // Creates the full account
-            Account acc = new Account(id, pseudoAccount);
-
-            // Appends the next account
-            try
-            {
-                // Appends the account to the database
-                using (StreamWriter sr = new StreamWriter(this.FilePath, true, Encoding.UTF8))
-                    sr.WriteLine("A"+this.GetLineFromAccount(acc));
-                // Returns the newly created account
-                return acc;
-            }
-            catch
-            {
-                throw new DatabaseException("Fehler beim sichern des Benutzers.");
-            }
+            // Inserts the new account into the database.
+            // DB-Exception will be passed forward
+            return this.InsertNewIntoDatabase(
+                pseudoAccount,
+                (id,pseud)=>new Account(id,pseud),
+                i=>i.Id,
+                this.GetLineFromAccount,
+                this.ParseAccountFromLine,
+                INDICATOR_ACCOUNT
+            );           
         }
 
         public Transaction CreateNewTransaction(Transaction pseudoTransaction)
         {
-            this.EnsureFileExistence();
-
-            throw new NotImplementedException();
+            // Inserts the new transaction into the database.
+            // DB-Exception will be passed forward
+            return this.InsertNewIntoDatabase(
+                pseudoTransaction,
+                (id, pseud) => new Transaction(id, pseud),
+                i=>i.Id,
+                this.GetLineFromTransaction,
+                this.ParseTransactionFromLine,
+                INDICATOR_TRANSACTION
+            );
         }
 
         public Account GetAccountByID(int id)
@@ -255,7 +341,7 @@ namespace Geldautomat.database
                     while ((line = sr.ReadLine()) != null)
                     {
                         // Checks if the line is not an account line
-                        if (line[0] != 'A')
+                        if (line.Length <= 0 || line[0] != INDICATOR_ACCOUNT)
                             continue;
 
                         // Tries to get an account
@@ -269,20 +355,53 @@ namespace Geldautomat.database
                         if (id == acc.Id)
                             return acc;
                     }
+
+                return null;
             }
             catch
             {
                 throw new DatabaseException("Fehler beim lesen der Datenbank.");
             }
-
-            throw new NotImplementedException();
         }
 
         public Transaction[] GetAccountTransactions(Account account)
         {
             this.EnsureFileExistence();
 
-            throw new NotImplementedException();
+            try
+            {
+                // List with all transactions (From the given account)
+                List<Transaction> loadedTransactions = new List<Transaction>();
+
+                string line;
+
+                // Reads in all lines
+                using (StreamReader sr = new StreamReader(this.FilePath, Encoding.UTF8))
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        // Checks if the line is not an transaction line
+                        if (line.Length <= 0 || line[0] != INDICATOR_TRANSACTION)
+                            continue;
+
+                        // Tries to get the transaction
+                        Transaction trans = this.ParseTransactionFromLine(line.Substring(1, line.Length - 1));
+
+                        // Checks if the transaction could not be parsed
+                        if (trans == null)
+                            throw new DatabaseException("Datenbank-Datei is invalid.");
+
+                        // Checks if the id's match
+                        if (trans.AccountId == account.Id)
+                            // Appends the transaction
+                            loadedTransactions.Add(trans);
+                    }
+
+                return loadedTransactions.ToArray();
+            }
+            catch
+            {
+                throw new DatabaseException("Fehler beim lesen der Datenbank.");
+            }
         }
 
         public void UpdateAccount(Account account)
@@ -303,7 +422,7 @@ namespace Geldautomat.database
                         lines.Add(ln);
 
                         // Checks if the line isn't an account
-                        if(ln[0] != 'A')
+                        if(ln.Length <= 0 || ln[0] != INDICATOR_ACCOUNT)
                             continue;
 
                         // Loads the account

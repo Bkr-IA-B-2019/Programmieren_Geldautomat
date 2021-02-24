@@ -12,7 +12,7 @@ namespace Geldautomat
         /// <summary>
         /// What database gets used
         /// </summary>
-        public static IDatabase USED_DATABASE = new SqliteDatabase();
+        public static IDatabase USED_DATABASE = new CSVDatabase();
 
         /// <summary>
         /// What kind of products can be bought
@@ -28,7 +28,12 @@ namespace Geldautomat
         /// <summary>
         /// Which file to use when using the sqlite-database
         /// </summary>
-        public static string SQLITE_FILE_NAME = "Bank.sqlite";
+        public const string SQLITE_FILE_NAME = "Bank.sqlite";
+
+        /// <summary>
+        /// Which file to use when using the csv-database
+        /// </summary>
+        public const string CSV_FILE_NAME = "Bank.csv";
 
     }
 }
