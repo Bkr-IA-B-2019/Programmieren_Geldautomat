@@ -32,7 +32,7 @@ namespace Geldautomat.Forms
             // Gets the money
             if(!decimal.TryParse(this.textBoxMoney.Text,out decimal money))
             {
-                this.DisplayError("Bitte gebe die Anzahl an € an, welche du gegeschrieben haben möchtest.");
+                this.DisplayError("Bitte geben sie an, wie viel Euro sie auf ihr Konto aufladen möchten.");
                 return;
             }
 

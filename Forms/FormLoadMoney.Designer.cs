@@ -68,7 +68,7 @@
             this.labelMoney.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.labelMoney.Size = new System.Drawing.Size(422, 33);
             this.labelMoney.TabIndex = 2;
-            this.labelMoney.Text = "Money";
+            this.labelMoney.Text = "Wie viel Euro möchten Sie aufladen?";
             this.labelMoney.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // buttonAccept
@@ -87,7 +87,7 @@
             this.buttonAccept.UseVisualStyleBackColor = false;
             this.buttonAccept.Click += new System.EventHandler(this.OnButtonAcceptClicked);
             // 
-            // Aufladen
+            // FormLoadMoney
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -96,7 +96,7 @@
             this.Controls.Add(this.panel1);
             this.MaximumSize = new System.Drawing.Size(700, 420);
             this.MinimumSize = new System.Drawing.Size(450, 220);
-            this.Name = "Aufladen";
+            this.Name = "FormLoadMoney";
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.buttonAccept, 0);
             this.panel1.ResumeLayout(false);

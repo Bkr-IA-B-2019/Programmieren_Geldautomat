@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="labelError.Text" xml:space="preserve">
-    <value>Nach zusammenrechnung aller Transaktionen mit dem aktuellen Guthaben, kommt  nicht der Anfangswert (0) heraus. Der Verlauf dieser Transaktionen ist nicht konsistent und kann daher nicht als valide genommen werden.</value>
+    <value>Nach zusammenrechnung aller Transaktionen mit dem aktuellen Guthaben, kommt  nicht der Anfangswert (0€) heraus. Der Verlauf dieser Transaktionen ist nicht konsistent und kann daher nicht als valide genommen werden.</value>
   </data>
 </root>

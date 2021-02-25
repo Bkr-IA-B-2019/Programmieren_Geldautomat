@@ -37,9 +37,9 @@ namespace Geldautomat.Forms
 
             // Inserts all values
             this.labelBuy.Text = Usermanager.Instance.GetRandomProduct();
-            this.labelCosts.Text = (this.price = Usermanager.Instance.GetRandomPrice()).ToString();
-            this.labelMoney.Text = acc.Money.ToString();
-            this.labelMoneyAfter.Text = (acc.Money - (decimal)this.price).ToString();
+            this.labelCosts.Text = (this.price = Usermanager.Instance.GetRandomPrice()).ToString()+"€";
+            this.labelMoney.Text = acc.Money.ToString()+"€";
+            this.labelMoneyAfter.Text = (acc.Money - (decimal)this.price).ToString()+"€";
 
 
             // If the product is afordable

@@ -38,7 +38,7 @@ namespace Geldautomat.Forms
             // Set all informations
             this.labelId.Text = acc.Id.ToString();
             this.labelWelcome.Text = $"{acc.Firstname} {acc.Lastname}";
-            this.labelMoney.Text = acc.Money.ToString();
+            this.labelMoney.Text = acc.Money.ToString()+"€";
         }
 
         /// <summary>
