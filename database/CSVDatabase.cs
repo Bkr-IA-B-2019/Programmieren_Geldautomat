@@ -69,7 +69,7 @@ namespace Geldautomat.database
         /// </summary>
         /// <param name="line">The line containing the data</param>
         /// <returns>The parsed account if successfull; otherwise null</returns>
-        private Account ParseAccountFromLine(string line)
+        private Account AccountParser(string line)
         {
             // Splits the line into the single parts
             string[] parts = line.Split(SEPERATOR);
@@ -116,7 +116,7 @@ namespace Geldautomat.database
         /// </summary>
         /// <param name="acc">The account</param>
         /// <returns>A line that can be loaded back to an account</returns>
-        private string GetLineFromAccount(Account acc)
+        private string AccountEncoder(Account acc)
         {
             return $"{acc.Id},{acc.PinSalt.AsBase64()},{acc.PinHash},{acc.Money.ToString(CultureInfo.InvariantCulture)},{acc.Firstname.AsBase64()},{acc.Lastname.AsBase64()},{acc.CreateDateTime.ToString()}";
         }
@@ -127,7 +127,7 @@ namespace Geldautomat.database
         /// </summary>
         /// <param name="line">The line with the encoded data</param>
         /// <returns>The parsed transaction if successfull; otherwise null</returns>
-        private Transaction ParseTransactionFromLine(string line)
+        private Transaction TransactionParser(string line)
         {
             // Splits the line into the single parts
             string[] parts = line.Split(SEPERATOR);
@@ -165,61 +165,14 @@ namespace Geldautomat.database
         /// </summary>
         /// <param name="trans">The transaction</param>
         /// <returns>A line that can be loaded back to an transaction</returns>
-        private string GetLineFromTransaction(Transaction trans)
+        private string TransactionEncoder(Transaction trans)
         {
             return $"{trans.Id},{trans.TranslatedMoney.ToString(CultureInfo.InvariantCulture)},{trans.Subtracted},{trans.AccountId},{trans.DateTime}";
         }
 
         #endregion
 
-        #region Database-helper functions
-
-        /// <summary>
-        /// Tries to load all saved values from the db-file.
-        /// Takes a function to parse a line to an value
-        /// and the indicator that indicated that the given line in the database file is that datatype
-        /// In case null is returned, the file is corrupted and should be replaced with an working one.
-        /// </summary>
-        /// <param name="indicator">The char that indicates that the given line from the database is actually one of the requested type.</param>
-        /// <param name="doParse">Lineparser for the object</param>
-        /// <returns>An array with all loaded values from the file; if the loading was unsuccessfull null</returns>
-        private T[] LoadAllOf<T>(LineParser<T> doParse,char indicator)
-        {
-            try
-            {
-                // Opens the reader
-                using (StreamReader sr = new StreamReader(this.FilePath))
-                {
-                    // Will hold all loaded values
-                    List<T> loaded = new List<T>();
-
-                    // Reads all lines
-                    string line;
-                    while((line = sr.ReadLine()) != null){
-                        // Checks if the line not an account
-                        if (line.Length <= 0 || line[0] != indicator)
-                            continue;
-
-                        // Tries to load the line
-                        T loadedObject = doParse(line.Substring(1, line.Length - 1));
-
-                        // Checks if the loading failed
-                        if (loadedObject == null)
-                            return null;
-
-                        // Appends the all loaded
-                        loaded.Add(loadedObject);
-                    }
-
-                    // Returns all loaded accounts
-                    return loaded.ToArray();
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
+        #region Database-access functions
 
         /// <summary>
         /// Gets the highest id that is currently beeing used an returns the next
@@ -227,11 +180,12 @@ namespace Geldautomat.database
         /// <param name="doParse">LineParser for the object</param>
         /// <param name="getId">Function to get the id (Unique) of an object</param>
         /// <param name="indicator">The indicator to show that a line on the database actually is from the object's type</param>
+        /// <exception cref="DatabaseException">Forwarded from CVDatabase.LoadAllOf</exception>
         /// <returns>The next free account id</returns>
         private int GetNextIDFor<T>(LineParser<T> doParse, Func<T,int> getId, char indicator)
         {
             // Loads all accounts
-            T[] accs = this.LoadAllOf(doParse,indicator);
+            T[] accs = this.GetAllMatching(o=>true,doParse,indicator);
 
             // Checks if no accounts are found
             if (accs == null || accs.Length == 0)
@@ -279,6 +233,159 @@ namespace Geldautomat.database
         }
 
         /// <summary>
+        /// Searches in the database for an object of the given indicator and retuns the first object
+        /// that matches the given test condition
+        /// </summary>
+        /// <param name="doTest">The testing condition</param>
+        /// <param name="doParse">Lineparser for the object</param>
+        /// <param name="indicator">Line indicator for the object</param>
+        /// <exception cref="DatabaseException">If anything went wrong with the loading of the database</exception>
+        /// <returns>The first loaded object where the condition is true; if not found, the default value</returns>
+        private T GetFirstMatching<T>(Func<T,bool> doTest,LineParser<T> doParse,char indicator)
+        {
+            try
+            {
+                // Opens the reader
+                using (StreamReader sr = new StreamReader(this.FilePath))
+                {
+                    // Reads all lines
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        // Checks if the line not an account
+                        if (line.Length <= 0 || line[0] != indicator)
+                            continue;
+
+                        // Tries to load the line
+                        T loadedObject = doParse(line.Substring(1, line.Length - 1));
+
+                        // Checks if the loading failed
+                        if (loadedObject == null)
+                            throw new DatabaseException("Datenbankdatei ist invalid formatiert.");
+
+                        // Checks if the value matches
+                        if (doTest(loadedObject))
+                            return loadedObject;
+                    }
+
+                    // Returns 
+                    return default;
+                }
+            }
+            catch
+            {
+                throw new DatabaseException("Fehler beim laden der Datenbank.");
+            }
+        }
+
+        /// <summary>
+        /// Searches in the database for all objects that match the given condition.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="doTest">The testing condition</param>
+        /// <param name="doParse">Lineparser for the object</param>
+        /// <param name="indicator">Line indicator for the object</param>
+        /// <exception cref="DatabaseException">If anything went wrong with the loading of the databse</exception>
+        /// <returns>An array with all objects that match the given condition</returns>
+        private T[] GetAllMatching<T>(Func<T,bool> doTest,LineParser<T> doParse,char indicator)
+        {
+            try
+            {
+                // Opens the reader
+                using (StreamReader sr = new StreamReader(this.FilePath))
+                {
+                    // Will hold all loaded values
+                    List<T> loaded = new List<T>();
+
+                    // Reads all lines
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        // Checks if the line not an account
+                        if (line.Length <= 0 || line[0] != indicator)
+                            continue;
+
+                        // Tries to load the line
+                        T loadedObject = doParse(line.Substring(1, line.Length - 1));
+
+                        // Checks if the loading failed
+                        if (loadedObject == null)
+                            throw new DatabaseException("Datenbankdatei ist invalid formatiert.");
+
+                        // Checks if the object matches the condition
+                        if(doTest(loadedObject))
+                            // Appends the all loaded
+                            loaded.Add(loadedObject);
+                    }
+
+                    // Returns all loaded accounts
+                    return loaded.ToArray();
+                }
+            }
+            catch
+            {
+                throw new DatabaseException("Fehler beim laden der Datei.");
+            }
+        }
+
+        /// <summary>
+        /// Updates the given object on the database
+        /// </summary>
+        /// <param name="value">The new value of the object</param>
+        /// <param name="doTest">Method to test if two object are equal (Eg. have the same id). Used to check which value on the database shuld be overriden</param>
+        /// <param name="doParse">Lineparser for the object</param>
+        /// <param name="doEncode">Encoder for the object</param>
+        /// <param name="indicator">The indicator for the object</param>
+        /// <exception cref="DatabaseException">If anything went wrong with the database</exception>
+        private void UpdateObject<T>(T value,Func<T,T,bool> doTest,LineParser<T> doParse,ObjectEncoder<T> doEncode,char indicator)
+        {
+            try
+            {
+                // Will hold all lines
+                List<string> lines = new List<string>();
+
+                // Loads all lines
+                string ln;
+                using (StreamReader sr = new StreamReader(this.FilePath, Encoding.UTF8))
+                    while ((ln = sr.ReadLine()) != null)
+                    {
+                        // Appends the line
+                        lines.Add(ln);
+
+                        // Checks if the line isn't of the searched type
+                        if (ln.Length <= 0 || ln[0] != indicator)
+                            continue;
+
+                        // Loads the object
+                        T obj = doParse(ln.Substring(1, ln.Length - 1));
+
+                        // Checks if the object could not be parsed
+                        if (obj == null)
+                            throw new DatabaseException("Datenbank-Datei is invalid.");
+
+                        // Checks if the objects do not match
+                        if (!doTest(obj,value))
+                            continue;
+
+                        // Removes the line and appends the new object
+                        lines.RemoveAt(lines.Count - 1);
+                        lines.Add(INDICATOR_ACCOUNT + doEncode(value));
+                    }
+
+                // Saves all read lines back to the database
+                using (StreamWriter sw = new StreamWriter(this.FilePath, false, Encoding.UTF8))
+                    foreach (string line in lines)
+                        sw.WriteLine(line);
+            }
+            catch
+            {
+                throw new DatabaseException("Fehler beim laden der Datenbank");
+            }
+        }
+
+        #endregion
+
+        /// <summary>
         /// Ensures that the required database file exists
         /// </summary>
         private void EnsureFileExistence()
@@ -288,8 +395,6 @@ namespace Geldautomat.database
                 // Creates the file
                 File.Create(this.FilePath).Close();
         }
-
-        #endregion
 
         #region IDatabase inhert
 
@@ -308,8 +413,8 @@ namespace Geldautomat.database
                 pseudoAccount,
                 (id,pseud)=>new Account(id,pseud),
                 i=>i.Id,
-                this.GetLineFromAccount,
-                this.ParseAccountFromLine,
+                this.AccountEncoder,
+                this.AccountParser,
                 INDICATOR_ACCOUNT
             );           
         }
@@ -322,8 +427,8 @@ namespace Geldautomat.database
                 pseudoTransaction,
                 (id, pseud) => new Transaction(id, pseud),
                 i=>i.Id,
-                this.GetLineFromTransaction,
-                this.ParseTransactionFromLine,
+                this.TransactionEncoder,
+                this.TransactionParser,
                 INDICATOR_TRANSACTION
             );
         }
@@ -332,124 +437,35 @@ namespace Geldautomat.database
         {
             this.EnsureFileExistence();
 
-            try
-            {
-                string line;
-
-                // Reads in all accounts
-                using (StreamReader sr = new StreamReader(this.FilePath, Encoding.UTF8))
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        // Checks if the line is not an account line
-                        if (line.Length <= 0 || line[0] != INDICATOR_ACCOUNT)
-                            continue;
-
-                        // Tries to get an account
-                        Account acc = this.ParseAccountFromLine(line.Substring(1, line.Length-1));
-
-                        // Checks if the account could not be parsed
-                        if (acc == null)
-                            throw new DatabaseException("Datenbank-Datei is invalid.");
-
-                        // Checks if the id's match
-                        if (id == acc.Id)
-                            return acc;
-                    }
-
-                return null;
-            }
-            catch
-            {
-                throw new DatabaseException("Fehler beim lesen der Datenbank.");
-            }
+            return this.GetFirstMatching(
+                (o)=>o.Id==id,
+                this.AccountParser,
+                INDICATOR_ACCOUNT
+            );
         }
 
         public Transaction[] GetAccountTransactions(Account account)
         {
             this.EnsureFileExistence();
 
-            try
-            {
-                // List with all transactions (From the given account)
-                List<Transaction> loadedTransactions = new List<Transaction>();
-
-                string line;
-
-                // Reads in all lines
-                using (StreamReader sr = new StreamReader(this.FilePath, Encoding.UTF8))
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        // Checks if the line is not an transaction line
-                        if (line.Length <= 0 || line[0] != INDICATOR_TRANSACTION)
-                            continue;
-
-                        // Tries to get the transaction
-                        Transaction trans = this.ParseTransactionFromLine(line.Substring(1, line.Length - 1));
-
-                        // Checks if the transaction could not be parsed
-                        if (trans == null)
-                            throw new DatabaseException("Datenbank-Datei is invalid.");
-
-                        // Checks if the id's match
-                        if (trans.AccountId == account.Id)
-                            // Appends the transaction
-                            loadedTransactions.Add(trans);
-                    }
-
-                return loadedTransactions.ToArray();
-            }
-            catch
-            {
-                throw new DatabaseException("Fehler beim lesen der Datenbank.");
-            }
+            return this.GetAllMatching(
+                i => i.AccountId == account.Id,
+                this.TransactionParser,
+                INDICATOR_TRANSACTION
+            );
         }
 
         public void UpdateAccount(Account account)
         {
             this.EnsureFileExistence();
 
-            try
-            {
-                // Will hold all lines
-                List<string> lines = new List<string>();
-
-                // Loads all lines
-                string ln;
-                using(StreamReader sr = new StreamReader(this.FilePath, Encoding.UTF8))
-                    while((ln=sr.ReadLine()) != null)
-                    {
-                        // Appends the line
-                        lines.Add(ln);
-
-                        // Checks if the line isn't an account
-                        if(ln.Length <= 0 || ln[0] != INDICATOR_ACCOUNT)
-                            continue;
-
-                        // Loads the account
-                        Account acc = this.ParseAccountFromLine(ln.Substring(1, ln.Length - 1));
-
-                        // Checks if the account could not be parsed
-                        if (acc == null)
-                            throw new DatabaseException("Datenbank-Datei is invalid.");
-
-                        // Checks if the ids do not match
-                        if (account.Id != acc.Id)
-                            continue;
-
-                        // Removes the line and appends the new account
-                        lines.RemoveAt(lines.Count-1);
-                        lines.Add("A"+this.GetLineFromAccount(account));
-                    }
-
-                // Saves all read lines back to the database
-                using (StreamWriter sw = new StreamWriter(this.FilePath, false, Encoding.UTF8))
-                    foreach (string line in lines)
-                        sw.WriteLine(line);
-            }
-            catch
-            {
-                throw new DatabaseException("Fehler beim laden der Datenbank");
-            }
+            this.UpdateObject(
+                account,
+                (a, b) => a.Id == b.Id,
+                this.AccountParser,
+                this.AccountEncoder,
+                INDICATOR_ACCOUNT
+            );
         }
 
         #endregion
